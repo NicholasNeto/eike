@@ -1,0 +1,28 @@
+{
+  "name": "eike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "browserslist": "chrome 70",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasNeto/eike.git"
+  },
+  "author": "Membros do Conselho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicholasNeto/eike/issues"
+  },
+  "homepage": "https://github.com/NicholasNeto/eike#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "typescript": "^3.6.3"
+  },
+  "scripts": {
+    "start": "parcel src/index.html",
+    "test": "npm test"
+  },
+  "dependencies": {
+    "lit-element": "^2.2.1"
+  }
+}
