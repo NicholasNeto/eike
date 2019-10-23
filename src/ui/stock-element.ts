@@ -3,9 +3,9 @@ import { AppElement, html } from './app-element';
 
 class StockElement extends AppElement {
 
-  static get properties(){
+  static get properties() {
     return {
-      stock: {type: Object}
+      stock: { type: Object }
     }
   }
 
@@ -29,7 +29,7 @@ class StockElement extends AppElement {
           Gráfico
         </div>
 
-    </a>
+      </a>
     `
   }
   disconnectedCallback() { }
