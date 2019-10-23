@@ -1,0 +1,160 @@
+//RULES
+//ONLY include new definitions here if:
+//** 1 - style will be shared across DIFFERENT UI COMPONENTS
+//** 2 - and style includes measurements in units like rem, em, cm, ch etc, or colors. A style like 'text-transform: uppercase' shouldn't be here for example. As this is a trait that can be defined at the component level, using inline styles. And it doesn't depend on any adjustable unit of measure or color.
+//** 3 - and it isn't related to alignment rules. For example, 'justify-content: space-between' or 'text-align: center'. These are supposed to be declared right inside the html, using inline styles.
+
+//NAMING CONVENTIONS
+//Try to use names that mean something in user experience.
+//For example, use sf-highlighted and sf-muted instead of sf-red and sf-grey.
+
+//CONSTANTS
+
+//TEXT COLORS CONSTANTS
+TEXT_COLORS = {
+    highlighted: #5822dd,
+    primary: #05bcb4,
+    body: #333,
+    secondary: #666,
+    success: #28a745,
+    danger: #ff461a,
+    warning: #FCC443,
+    info: #17a2b8,
+    muted: #999999
+}
+SF_COLORS = {
+    highlighted: #5822dd,
+    primary: #05bcb4
+    body: white,
+    secondary: #05bcb4,
+    success: #b3ce47,
+    danger: #ff461a,
+    warning: #FCC443,
+    info: #05bcb4,
+    muted: TEXT_COLORS.muted
+}
+SF_COLOR_OPPOSES = {
+    highlighted: #FCC443,
+    body: white,
+    secondary: #FCC443,
+    success: #FCC443,
+    danger: #05bcb4,
+    warning: #FCC443,
+    info: #05bcb4,
+    muted: #f8f9fa
+}
+TEXT_SIZES = {
+    main-title: 1.875em,
+    title: 1.5em,
+    body: 1em,
+    footnote: 0.8em
+}
+LENGTHS = {
+    main-title: 2.5em
+    main: 2em,
+    normal: 1em,
+    footnote: 0.5em
+}
+
+border-width = 2px
+border-radius = 5px
+normal-item-shadow = 0 .125em .25em rgba(0,0,0,.075)
+
+//CSS SELECTORS
+
+//TEXT CLASSES
+for key, value in TEXT_COLORS
+    .tc-{key}
+        color: value!important
+
+for key, value in TEXT_SIZES
+    .ts-{key}
+        font-size: value!important
+
+.t-action
+    text-transform: uppercase
+
+//SURFACE CLASSES
+
+.sf-clickable
+    cursor: pointer
+    border: none
+    border-radius: border-radius
+    box-shadow: normal-item-shadow!important;
+.sf-inputable
+    cursor: text
+    border: none
+    border-radius: border-radius
+
+for key, value in SF_COLORS
+
+    font_color = black
+    if lightness(value) < 60%
+        font_color = white
+    .sf-{key}
+        color: font_color
+        background-color: value
+
+
+    .sf-active, .sf-darken, .sf-focused
+        &.sf-{key}
+            background-color: darken(value, 30%)
+    .sf-lighten
+        &.sf-{key}
+            background-color: lighten(value, 30%)
+    .sf-clickable
+        &.sf-{key}:hover
+            background-color: darken(value, 20%)
+        &.sf-{key}:focus
+            background-color: darken(value, 30%)
+        &.sf-{key}:active
+            background-color: darken(value, 30%)
+    .sf-inputable
+        &.sf-{key}:hover
+            background-color: darken(value, 20%)
+        &.sf-{key}:focus
+            background-color: darken(value, 30%)
+        &.sf-{key}:active
+            background-color: darken(value, 30%)
+    .sf-frame-{key}
+        border: border-width solid value
+    .sf-frame-bottom-{key}
+        border: border-width solid value
+    .sf-frame-{key}-darker
+        border: border-width solid darken(value, 30%)
+    .sf-frame-bottom-{key}-darker
+        border: border-width solid darken(value, 30%)
+    .sf-inverted
+        &.sf-{key}
+            border: border-width solid darken(value, 20%)
+            background-color: SF_COLORS.body
+            color: darken(value, 30%)
+            &:hover
+                color: font_color
+            &:focus, &:active
+                color: font_color
+                border: border-width solid darken(value, 30%)
+
+
+//CLASS SELECTORS FOR PADDINGS AND MARGINS
+for key, value in LENGTHS
+    .p-{key}
+        padding: value
+    .pr-{key}
+        padding-right: value
+    .pl-{key}
+        padding-left: value
+    .pt-{key}
+        padding-top: value
+    .pb-{key}
+        padding-bottom: value
+    .m-{key}
+        margin: value
+    .mr-{key}
+        margin-right: value
+    .ml-{key}
+        margin-left: value
+    .mt-{key}
+        margin-top: value
+    .mb-{key}
+        margin-bottom: value
