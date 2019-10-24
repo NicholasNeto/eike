@@ -1,22 +1,29 @@
-import { AppElement, html } from './app-element';
-import { connect } from 'pwa-helpers/connect-mixin.js';
+import { AppElement, html, property } from './app-element';
 import './stock-element';
 import store from '../store/store';
-import { property } from 'lit-element';
 
-class NewsPage extends connect(store)(AppElement) {
-  stateChanged(state) {
-    this.news = {name: state.context.params.stockId};
-  }
+class NewsPage extends AppElement {
+  
 
-  //@property()
-  news = {
+  @property()
+  news = [{
     'company': 'Noticia A',
-    'name': 'AAAA'
-  };
+    'name': 'AAAA',
+    'headline': 'Uhuuuuuu!',
+    'link': 'Ahaaaaa'
+  },{
+    'company': 'Noticia A',
+    'name': 'AAAA',
+    'headline': 'Uhuuuuuu!',
+    'link': 'Ahaaaaa'
+  }];
 
   render () {
-    return html`${this.news.name}`
+    return html`
+      ${this.news.map(it => html`
+        <div>${it.company}</div>
+      `)}
+    `
   }
 }
 

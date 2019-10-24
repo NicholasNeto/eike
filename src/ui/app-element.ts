@@ -8,4 +8,4 @@ export class AppElement extends LitElement {
 
 }
 
-export { html };
+export * from 'lit-element';
