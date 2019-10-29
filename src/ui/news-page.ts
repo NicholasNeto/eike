@@ -1,6 +1,8 @@
 import { AppElement, html, property } from './app-element';
 import './stock-element';
 import store from '../store/store';
+//import axios from 'axios';
+import { eikeAxios } from '../services/api';
 
 class NewsPage extends AppElement {
   
@@ -19,6 +21,8 @@ class NewsPage extends AppElement {
   }];
 
   render () {
+    eikeAxios.get('/top-headlines').then((res) => console.log("loaded url", res));
+
     return html`
       ${this.news.map(it => html`
         <div>${it.company}</div>
