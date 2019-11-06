@@ -2,30 +2,38 @@ import { AppElement, html, property } from './app-element';
 import './stock-element';
 import store from '../store/store';
 //import axios from 'axios';
-import { eikeAxios } from '../services/api';
+import { getNewsByCompanyName } from '../services/api';
 
 class NewsPage extends AppElement {
   
 
   @property()
   news = [{
-    'company': 'Noticia A',
-    'name': 'AAAA',
-    'headline': 'Uhuuuuuu!',
-    'link': 'Ahaaaaa'
-  },{
-    'company': 'Noticia A',
-    'name': 'AAAA',
-    'headline': 'Uhuuuuuu!',
-    'link': 'Ahaaaaa'
+    'title': 'Ainda não carregou notícias',
+    'description': 'AAAA',
+    'source': 'Uhuuuuuu!',
+    'url': 'Ahaaaaa',
+    'imgUrl': 'https://www.something.com.br'
   }];
 
   render () {
-    eikeAxios.get('/top-headlines').then((res) => console.log("loaded url", res));
+    //TODO: fazer o render usar a versão atualizada da lista de News
+    getNewsByCompanyName("Apple", 15).then((res) => {
+      const news = res.data.articles.map(article => {
+        return {
+          title: article.title,
+          description: article.description,
+          source: article.source.name,
+          url: article.url,
+          imgUrl: article.urlToImage
+        }
+      });
+      console.log(news);
+    });
 
     return html`
       ${this.news.map(it => html`
-        <div>${it.company}</div>
+        <div>${it.title}</div>
       `)}
     `
   }
