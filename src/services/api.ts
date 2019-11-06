@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import { compose } from 'redux';
 
 const NEWS_API_KEY = '50b1dd50b09b45c6afe263b7790b4c56';
