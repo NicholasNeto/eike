@@ -7,8 +7,8 @@ class StocksPage extends connect(store)(AppElement) {
 
   render () {
     const stock = {
-      'company': 'Apple',
-      'name': 'APPL'
+      'company': 'Banco Inter',
+      'name': 'BIDI4'
     };
 
     return html`<stock-element .stock=${stock} />`

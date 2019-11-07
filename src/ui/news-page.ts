@@ -1,39 +1,27 @@
-import { AppElement, html, property } from './app-element';
+import {AppElement, html, property} from './app-element';
+import {getNewsByCompanyName} from '../services/api';
 import './stock-element';
-import store from '../store/store';
-//import axios from 'axios';
-import { getNewsByCompanyName } from '../services/api';
+import store from "../store/store";
+import {connect} from "pwa-helpers/connect-mixin";
 
-class NewsPage extends AppElement {
-  
+class NewsPage extends connect(store)(AppElement) {
+
 
   @property()
-  news = [{
-    'title': 'Ainda não carregou notícias',
-    'description': 'AAAA',
-    'source': 'Uhuuuuuu!',
-    'url': 'Ahaaaaa',
-    'imgUrl': 'https://www.something.com.br'
-  }];
+  news = [];
+
+  async connectedCallback() {
+    //TODO: Move to router
+    super.connectedCallback();
+    const {params} = store.getState().context;
+    const newsRes = await getNewsByCompanyName(params.stockId, 3);
+    this.news = (newsRes.data.articles as []);
+  }
 
   render () {
-    //TODO: fazer o render usar a versão atualizada da lista de News
-    getNewsByCompanyName("Apple", 15).then((res) => {
-      const news = res.data.articles.map(article => {
-        return {
-          title: article.title,
-          description: article.description,
-          source: article.source.name,
-          url: article.url,
-          imgUrl: article.urlToImage
-        }
-      });
-      console.log(news);
-    });
-
     return html`
       ${this.news.map(it => html`
-        <div>${it.title}</div>
+        <div class="p-normal sf-body m-normal sf-clickable">${it.title}</div>
       `)}
     `
   }
