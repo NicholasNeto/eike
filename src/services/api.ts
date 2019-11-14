@@ -6,16 +6,23 @@ const eikeAxios = axios.create({
 });
 
 eikeAxios.interceptors.request.use((config) => {
-    config.url = config.url + "?apiKey=" + NEWS_API_KEY;
+    config.params = {
+        ...config.params,
+        apiKey: NEWS_API_KEY
+    };
     return config;
 }, (error) => {
     // Do something with request error
     return Promise.reject(error);
 });
 
-const getNewsByCompanyName = (companyName, numberOfPages) => {
-    console.log("getNewsByCompanyName", companyName);
-    return eikeAxios.get('/everything', {params: {q: companyName, pageSize: numberOfPages}});
-}
+type getNewsOpts = { companyName: string, numberOfPages: number, from: Date, to: Date };
 
-export { eikeAxios , getNewsByCompanyName };
+const getNewsByCompanyName = (opts: getNewsOpts):any => {
+    console.log("getNewsByCompanyName", opts.companyName);
+    return eikeAxios.get('/everything', {params:
+            {q: opts.companyName, pageSize: opts.numberOfPages, from: opts.from, to: opts.to, sortBy: "publishedAt"}
+    });
+};
+
+export {eikeAxios, getNewsByCompanyName};
