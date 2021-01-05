@@ -27,7 +27,7 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "lit-element": "^2.2.1",
     "page": "^1.11.5",
     "pwa-helpers": "^0.9.1",
